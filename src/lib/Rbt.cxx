@@ -418,8 +418,8 @@ extern "C" {
 __attribute__ ((visibility ("default")))
 char* runRdock(int argc, char* argv[]){
     cout.setf(ios_base::left,ios_base::adjustfield);
-
     std::string res = "";
+    char* cstr = new char[200];
     //Strip off the path to the executable, leaving just the file name
     RbtString strExeName(argv[0]);
     RbtString::size_type i = strExeName.rfind("/");
@@ -855,7 +855,8 @@ char* runRdock(int argc, char* argv[]){
                             for (int i = 0; i < data.size(); i++)
                                 res = res + data[i];
 
-                            std::cout << res.c_str();
+                            std::strcpy(cstr, res.c_str());
+                            std::cout << cstr;
                         }
                         iRun++;
                     }
@@ -889,6 +890,6 @@ char* runRdock(int argc, char* argv[]){
     _RBTOBJECTCOUNTER_DUMP_(cout)
 
 
-    return res.c_str();
+    return cstr;
 }
 }
