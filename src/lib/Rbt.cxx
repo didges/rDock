@@ -387,7 +387,7 @@ const RbtString EXEVERSION = " ($Id: //depot/dev/client3/rdock/2021.1/src/exe/rb
 const RbtString _ROOT_SF = "SCORE";
 const RbtString _RESTRAINT_SF = "RESTR";
 const RbtString _ROOT_TRANSFORM = "DOCK";
-std::vector<std::string> data;
+
 
 void PrintUsage(void)
 {
@@ -417,9 +417,10 @@ extern "C" {
 #include <stdlib.h>
 __attribute__ ((visibility ("default")))
 char* runRdock(int argc, char* argv[]){
+    std::vector<std::string> data;
     cout.setf(ios_base::left,ios_base::adjustfield);
     std::string res = "";
-    char* cstr = new char[200];
+    //char* cstr = new char[200];
     //Strip off the path to the executable, leaving just the file name
     RbtString strExeName(argv[0]);
     RbtString::size_type i = strExeName.rfind("/");
@@ -797,6 +798,7 @@ char* runRdock(int argc, char* argv[]){
 
                 if (spMdlFileSource->isDataFieldPresent("Name"))
                     cout << "NAME:   " << spMdlFileSource->GetDataValue("Name") << endl;
+                res = res + "[" + std::string(spMdlFileSource->GetDataValue("Name")) + " ";
                 if (spMdlFileSource->isDataFieldPresent("REG_Number"))
                     cout << "REG_Num:" << spMdlFileSource->GetDataValue("REG_Number")
                          << endl;
@@ -855,8 +857,8 @@ char* runRdock(int argc, char* argv[]){
                             for (int i = 0; i < data.size(); i++)
                                 res = res + data[i];
 
-                            std::strcpy(cstr, res.c_str());
-                            std::cout << cstr;
+                            //std::cout << res.c_str();
+
                         }
                         iRun++;
                     }
@@ -888,7 +890,9 @@ char* runRdock(int argc, char* argv[]){
     }
 
     _RBTOBJECTCOUNTER_DUMP_(cout)
-
+    char * cstr = new char [res.length()+1];
+    std::strcpy(cstr, res.c_str());
+    data.clear();
 
     return cstr;
 }
