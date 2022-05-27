@@ -39,7 +39,6 @@ const RbtString EXEVERSION = " ($Id: //depot/dev/client3/rdock/2021.1/src/exe/rb
 const RbtString _ROOT_SF = "SCORE";
 const RbtString _RESTRAINT_SF = "RESTR";
 const RbtString _ROOT_TRANSFORM = "DOCK";
-std::vector<std::string> data;
 
 void PrintUsage(void)
 {
@@ -501,7 +500,8 @@ int main(int argc, const char* argv[])
 	      bTargetMet = true;
 	    if (bOutput && bwrite) {
 	      spWS->Save();
-          data = spWS->Scores();
+          spWS->Scores();
+          cout << "Сonformation " << iRun << " " << "SCORE: " << spWS->Scores() << std::endl;
 	    }
 	    iRun++;
           }

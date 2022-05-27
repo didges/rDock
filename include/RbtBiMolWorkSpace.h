@@ -53,7 +53,7 @@ class RbtBiMolWorkSpace : public RbtWorkSpace
 		//Model I/O
 		//Saves ligand to file sink
 		virtual void Save(RbtBool bSaveScores=true);
-        std::vector<std::string> Scores(RbtBool bSaveScores=true);
+        std::string Scores(RbtBool bSaveScores=true);
 		virtual void SaveHistory(RbtBool bSaveScores=true);
 
 	protected:
@@ -70,7 +70,7 @@ class RbtBiMolWorkSpace : public RbtWorkSpace
 		RbtBiMolWorkSpace(const RbtBiMolWorkSpace&);//Copy constructor disabled by default		
 		RbtBiMolWorkSpace& operator=(const RbtBiMolWorkSpace&);//Copy assignment disabled by default
 		void SaveLigand(RbtMolecularFileSinkPtr spSink, RbtBool bSaveScores=true);
-        std::vector<std::string> GetScores(RbtMolecularFileSinkPtr spSink, RbtBool bSaveScores=true);
+        std::string GetScores(RbtMolecularFileSinkPtr spSink, RbtBool bSaveScores=true);
 		
 	protected:
 		////////////////////////////////////////

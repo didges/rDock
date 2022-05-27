@@ -417,7 +417,6 @@ extern "C" {
 #include <stdlib.h>
 __attribute__ ((visibility ("default")))
 char* runRdock(int argc, char* argv[]){
-    std::vector<std::string> data;
     cout.setf(ios_base::left,ios_base::adjustfield);
     std::string res = "";
     //char* cstr = new char[200];
@@ -798,7 +797,7 @@ char* runRdock(int argc, char* argv[]){
 
                 if (spMdlFileSource->isDataFieldPresent("Name"))
                     cout << "NAME:   " << spMdlFileSource->GetDataValue("Name") << endl;
-                res = res + "[" + std::string(spMdlFileSource->GetDataValue("Name")) + " ";
+                res = res + std::string(spMdlFileSource->GetDataValue("Name")) + " ";
                 if (spMdlFileSource->isDataFieldPresent("REG_Number"))
                     cout << "REG_Num:" << spMdlFileSource->GetDataValue("REG_Number")
                          << endl;
@@ -851,11 +850,10 @@ char* runRdock(int argc, char* argv[]){
                         if (bterm)
                             bTargetMet = true;
                         if (bOutput && bwrite) {
-                            spWS->Save();
-                            data = spWS->Scores();
+                            //spWS->Save();
 
-                            for (int i = 0; i < data.size(); i++)
-                                res = res + data[i];
+                            cout << "Сonformation " << iRun << " " << "SCORE: " << spWS->Scores() << std::endl;
+                            res = res + spWS->Scores() + " ";
 
                             //std::cout << res.c_str();
 
@@ -892,7 +890,6 @@ char* runRdock(int argc, char* argv[]){
     _RBTOBJECTCOUNTER_DUMP_(cout)
     char * cstr = new char [res.length()+1];
     std::strcpy(cstr, res.c_str());
-    data.clear();
 
     return cstr;
 }

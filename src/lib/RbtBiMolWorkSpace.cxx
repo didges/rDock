@@ -128,12 +128,12 @@ void RbtBiMolWorkSpace::SaveHistory(RbtBool bSaveScores) {
   SaveLigand(GetHistorySink(),bSaveScores);
 }
 
-std::vector<std::string> RbtBiMolWorkSpace::Scores(RbtBool bSaveScores){
+std::string RbtBiMolWorkSpace::Scores(RbtBool bSaveScores){
     return GetScores(GetSink(),bSaveScores);
 }
 
 
-std::vector<std::string> RbtBiMolWorkSpace::GetScores(RbtMolecularFileSinkPtr spSink, RbtBool bSaveScores) {
+std::string RbtBiMolWorkSpace::GetScores(RbtMolecularFileSinkPtr spSink, RbtBool bSaveScores) {
     if (spSink.Null()) //Check we have a valid sink
         return;
     RbtModelPtr spLigand(GetLigand());
@@ -151,15 +151,11 @@ std::vector<std::string> RbtBiMolWorkSpace::GetScores(RbtMolecularFileSinkPtr sp
     if (bSaveScores && pSF) {
         RbtStringVariantMap scoreMap;
         pSF->ScoreMap(scoreMap);
-        std::vector <std::string> data;
+        std::string data;
         for (RbtStringVariantMapConstIter vIter = scoreMap.begin(); vIter != scoreMap.end(); vIter++) {
-            data.push_back((*vIter).first);
-            data.push_back((*vIter).second);
+            data = std::string((*vIter).second);
+            return data;
         }
-        for (auto i: data)
-            std::cout << i << " " << std::endl;
-
-        return data;
     }
 }
 
