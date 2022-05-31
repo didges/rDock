@@ -418,6 +418,7 @@ extern "C" {
 __attribute__ ((visibility ("default")))
 char* runRdock(int argc, char* argv[]){
     cout.setf(ios_base::left,ios_base::adjustfield);
+    std::string conf = "";
     std::string res = "";
     //char* cstr = new char[200];
     //Strip off the path to the executable, leaving just the file name
@@ -850,13 +851,14 @@ char* runRdock(int argc, char* argv[]){
                         if (bterm)
                             bTargetMet = true;
                         if (bOutput && bwrite) {
-                            //spWS->Save();
-
+                            spWS->Save();
+                            RbtStringList lst = spWS->GetConf();
+                            for(auto i:lst)
+                                conf = conf + i + "\n";
                             cout << "Сonformation " << iRun << " " << "SCORE: " << spWS->Scores() << std::endl;
-                            res = res + spWS->Scores() + " ";
+                            res = res + "ITERATION" + spWS->Scores() + " " + conf;
 
-                            //std::cout << res.c_str();
-
+                            spWS->ClearCache();
                         }
                         iRun++;
                     }

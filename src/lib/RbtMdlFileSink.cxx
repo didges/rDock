@@ -92,7 +92,7 @@ void RbtMdlFileSink::Render() throw (RbtError)
     
     AddLine("$$$$");
     
-    Write();
+    //Write();
     if (m_bFirstRender) {
       SetAppend(true);
       m_bFirstRender = false;

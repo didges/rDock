@@ -122,6 +122,11 @@ void RbtBiMolWorkSpace::Save(RbtBool bSaveScores) {
   SaveLigand(GetSink(),bSaveScores);
 }
 
+RbtStringList RbtBiMolWorkSpace::GetConf()
+{
+    return GetConform(GetSink());
+}
+
 //Model I/O
 //Saves ligand to history file sink
 void RbtBiMolWorkSpace::SaveHistory(RbtBool bSaveScores) {
@@ -157,6 +162,22 @@ std::string RbtBiMolWorkSpace::GetScores(RbtMolecularFileSinkPtr spSink, RbtBool
             return data;
         }
     }
+}
+
+void RbtBiMolWorkSpace::ClearCache()
+{
+    GetSink()->ClearCache();
+}
+
+RbtStringList RbtBiMolWorkSpace::GetConform(RbtMolecularFileSinkPtr spSink)
+{
+    if (spSink.Null()) //Check we have a valid sink
+        return;
+    RbtModelPtr spLigand(GetLigand());
+    if (spLigand.Null()) //Check we have a ligand
+        return;
+    spSink->SetModel(spLigand);
+    return spSink->GetList();
 }
 
 //Private method to save ligand to file sink, optionally with score attached

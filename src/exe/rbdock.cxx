@@ -66,7 +66,7 @@ void PrintUsage(void)
 int main(int argc, const char* argv[])
 {
 	cout.setf(ios_base::left,ios_base::adjustfield);
-
+    std::string conf = "";
 	//Strip off the path to the executable, leaving just the file name
 	RbtString strExeName(argv[0]);
 	RbtString::size_type i = strExeName.rfind("/");
@@ -500,8 +500,11 @@ int main(int argc, const char* argv[])
 	      bTargetMet = true;
 	    if (bOutput && bwrite) {
 	      spWS->Save();
-          spWS->Scores();
+          RbtStringList lst = spWS->GetConf();
+          for(auto i:lst)
+              conf = conf + i + "\n";
           cout << "Сonformation " << iRun << " " << "SCORE: " << spWS->Scores() << std::endl;
+          spWS->ClearCache();
 	    }
 	    iRun++;
           }
